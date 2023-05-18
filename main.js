@@ -61,7 +61,7 @@ async function AccountInfo() {
   console.log(account);
   const from = account[0];
   console.log("it worked?");
-  const balanceInWei = await web3.eth.getBalance(account[0]);
+  const balanceInWei = await web3.eth.getBalance(from);
   const balanceInEth = web3.utils.fromWei(balanceInWei, "ether");
   console.log("it worked?");
   console.log(balanceInEth);
@@ -149,7 +149,6 @@ const contractABI = [
   },
 ];
 
-
 document.getElementById("mintactual").addEventListener("click", async () => {
   const metaMaskAvailable = await checkMetaMaskAvailability();
   if (metaMaskAvailable) {
@@ -168,7 +167,14 @@ document.getElementById("mintactual").addEventListener("click", async () => {
       const result = await contract.methods
         .mint()
         .send({ from: from, value: 0 });
+      const _name = await contract.methods.name().call();
+      const _symbol = await contract.methods.symbol().call();
       console.log("Minting result:", result);
+      // Update status
+      document.getElementById("demo2").innerText =
+        "Token Name: " + _name + "\nToken Symbol: " + _symbol;
+      document.getElementById("demo2").style.color = "green";
+
       // Update status
       document.getElementById("demo3").innerText = "Minting successful";
       document.getElementById("demo3").style.color = "green";
