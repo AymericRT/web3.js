@@ -74,7 +74,7 @@ body {
   margin-top: 16px;
   margin-bottom: 16px;
 }
-.mintcontainer {
+.secondcontainer {
   display: flex;
   flex-direction: column;
   justify-content: left; /* Center the button horizontally */
