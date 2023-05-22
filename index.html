@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web3.js Example</title>
-  <link rel="stylesheet" href="./styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.1-alpha.5/web3.min.js"
-    integrity="sha512-NfffVWpEqu1nq+658gzlJQilRBOvjs+PhEKSjT9gkQXRy9OfxI2TOXr33zS7MgGyTpBa5qtC6mKJkQGd9dN/rw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-  </script>
-</head>
-<body>
-  <main>
-    <p id="status1" class="status" style="color: red">disconnected</p>
-    <p id="status2" style="color: white"></p>
-    <div class="maincontainer">
-      <!-- Connect Wallet -->
-      <div class="container">
-        <div class="buttonswrapper">
-          <div class="buttonswrapperGrid">
-            <button id="metamask" class="button28">MetaMask</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web3.js Example</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.0.1-alpha.5/web3.min.js"
+      integrity="sha512-NfffVWpEqu1nq+658gzlJQilRBOvjs+PhEKSjT9gkQXRy9OfxI2TOXr33zS7MgGyTpBa5qtC6mKJkQGd9dN/rw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <main>
+      <p id="status1" class="status" style="color: red">disconnected</p>
+      <p id="status2" style="color: white"></p>
+      <div class="maincontainer">
+        <!-- Connect Wallet -->
+        <div class="container">
+          <div class="buttonswrapper">
+            <div class="buttonswrapperGrid">
+              <button id="metamask" class="button28">MetaMask</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Account Info Button -->
-      <div class="secondcontainer">
-        <button id="accountbutton" class="button49">Account Information</button>
-      </div>
-
-      <!-- Send Transaction -->
-      <form>
-        <div class="inputcontainer">
-          <input id="addressinput" class="myinput" placeholder="Address 0x0..." />
-          <input id="amountinput" class="myinput" placeholder="Amount ether..." />
+        <!-- Account Info Button -->
+        <div class="secondcontainer">
+          <button id="accountbutton" class="button49">
+            Account Information
+          </button>
         </div>
-        <div class="buttoncontainer">
-          <button type="button" id="sendButton" class="button64">Send</button>
-        </div>
-      </form>
 
-      <!-- Mint -->
-      <div class="secondcontainer">
-        <button id="mintbutton" class="button49">Mint</button>
-        <p id="status3"></p>
+        <!-- Send Transaction -->
+        <form>
+          <div class="inputcontainer">
+            <input
+              id="addressinput"
+              class="myinput"
+              placeholder="Address 0x0..."
+            />
+            <input
+              id="amountinput"
+              class="myinput"
+              placeholder="Amount ether..."
+            />
+          </div>
+          <div class="buttoncontainer">
+            <button type="button" id="sendButton" class="button64">Send</button>
+          </div>
+        </form>
+
+        <!-- Mint -->
+        <div class="secondcontainer">
+          <button id="mintbutton" class="button49">Mint</button>
+          <p id="status3"></p>
+        </div>
       </div>
-    </div>
-  </main>
-  <script src="./main.js"></script>
-</body>
+    </main>
+    <script src="./main.js"></script>
+  </body>
 </html>
