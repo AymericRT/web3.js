@@ -43,7 +43,8 @@ async function ConnectWallet() {
     // Handle error
     console.error("Failed to connect to MetaMask:", err);
     // Update status
-    document.getElementById("status1").innerText = "Failed to connect to MetaMask";
+    document.getElementById("status1").innerText =
+      "Failed to connect to MetaMask";
     document.getElementById("status1").style.color = "red";
   }
 }
@@ -65,12 +66,16 @@ async function AccountInformation() {
   const gasPrice = await web3.eth.getGasPrice();
   const gasPriceInEth = web3.utils.fromWei(gasPrice, "ether");
 
-
   // Display the account information
   document.getElementById("status2").innerText =
-    "Account Address: " + from + "\nBalance: " + balanceInEth + " ETH" +"\nGas Price: " + gasPriceInEth;
+    "Account Address: " +
+    from +
+    "\nBalance: " +
+    balanceInEth +
+    " ETH" +
+    "\nGas Price: " +
+    gasPriceInEth;
   document.getElementById("status2").style.color = "white";
-  
 }
 
 // Event Listener for Send Transaction
@@ -133,28 +138,72 @@ document.getElementById("mintbutton").addEventListener("click", async () => {
 });
 
 // Contract Details
-const contractAddress = "0x2e36d1cedd40969fa27b595925e3d739562c0e48"; // Hardcoded contract address
-const contractABI = [ // Hardcoded contract ABI
+const contractAddress = "0x88d099496C1A493A36E678062f259FE9919B9150"; // Hardcoded contract address
+const contractABI = [
+  // Hard coded ABI
   {
-    name: "name",
-    type: "function",
-    stateMutability: "view",
-    inputs: [],
-    outputs: [{ name: "", type: "string" }],
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Mint",
+    type: "event",
   },
   {
-    name: "symbol",
-    type: "function",
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "balances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
     stateMutability: "view",
-    inputs: [],
-    outputs: [{ name: "", type: "string" }],
+    type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
     name: "mint",
-    type: "function",
-    stateMutability: "non-payable",
-    inputs: [],
     outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
 ];
 
@@ -166,32 +215,30 @@ async function mintNFT() {
   // Instantiate a new Contract
   const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-  // Convert 1 gwei to wei
-  // Currently, this variable is unused, but if an NFT requires payment, you can use this as the argument to "value"
+  // Converts wei to Ether this currently is unused, 
+  // but if an NFT requires payment, you can use this as the argument to "value"
   const valueWei = web3.utils.toWei("1", "gwei");
-
-  // Call the mint function
+   
   try {
-    const result = await contract.methods
-      .mint()
-      .send({ from: from, value: 0 });
-    const _name = await contract.methods.name().call();
-    const _symbol = await contract.methods.symbol().call();
+    // Interact with Smart Contract
+    const result = await contract.methods.mint(1).send({ from: from, value: 0 });
+    const _totalSupply = await contract.methods.totalSupply().call();
     console.log("Minting result:", result);
-    // Update status
-    document.getElementById("status2").innerText =
-      "Token Name: " + _name + "\nToken Symbol: " + _symbol;
-    document.getElementById("status2").style.color = "green";
 
     // Update status
+    document.getElementById("status2").innerText = "TotalSupply: " + _totalSupply;
+    document.getElementById("status2").style.color = "green";
     document.getElementById("status3").innerText = "Minting successful";
     document.getElementById("status3").style.color = "green";
+
+    contract
+      .getPastEvents("Mint", {
+        fromBlock: "latest"
+      })
+      .then((results) => console.log(results));
   } catch (err) {
-    // Handle error
     console.error("Failed to mint:", err);
-    // Update status
     document.getElementById("status3").innerText = "Failed to mint";
     document.getElementById("status3").style.color = "red";
   }
-
 }
